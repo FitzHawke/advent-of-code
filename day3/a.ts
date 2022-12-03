@@ -1,4 +1,3 @@
-import { Hash } from "crypto";
 import { readFileSync } from "fs";
 
 const input = readFileSync("./input").toString().split("\n");
