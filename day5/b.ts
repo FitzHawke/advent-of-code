@@ -19,13 +19,7 @@ const insts = input[1].split("\n")
 for (let i of insts) {
   const n = i.split(" ")
   const tmp = stacks[+n[3]-1].splice(stacks[+n[3]-1].length-(+n[1]))
-  console.log(tmp)
-
-
-  // for (let j = 0; j < +n[1]; j++){
-  //   const tmp = stacks[+n[3]-1].pop()
-  //   if (tmp) stacks[+n[5]-1].push(tmp)
-  // }
+  if (tmp) stacks[+n[5]-1] = [...stacks[+n[5]-1], ...tmp]
 }
 
 console.log(stacks.reduce((acc,c)=>acc+c.at(-1),''))
