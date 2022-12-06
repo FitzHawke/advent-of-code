@@ -12,8 +12,6 @@ const check = (last3:string[], l:string):boolean => {
 
 for (let l of input) {
   count++;
-  
-  console.log(last3,l)
   if (check(last3, l)) {
     break;
   } else {
