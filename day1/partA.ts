@@ -1,6 +1,6 @@
 import { readFileSync } from "fs";
 
-const input = readFileSync("./input").toString();
+const input = readFileSync("./input.txt").toString();
 
 let arr = input.split("\n");
 
@@ -16,5 +16,4 @@ for (let i = 0; i < arr.length; i++) {
   }
 }
 totals.push(count);
-totals.sort((a, b) => b - a);
-console.log(totals[0] + totals[1] + totals[2]);
+console.log(Math.max(...totals));

@@ -1,6 +1,6 @@
 import { readFileSync } from "fs";
 
-const input = readFileSync("./input").toString().split("\n\n");
+const input = readFileSync("./input.txt").toString().split("\n\n");
 
 const pic = input[0].split("\n")
 

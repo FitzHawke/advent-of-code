@@ -1,6 +1,6 @@
 import { readFileSync } from "fs";
 
-const input = readFileSync("./input").toString().split("\n");
+const input = readFileSync("./input.txt").toString().split("\n");
 
 const getPrio = (s:string):number => {
   if (s.toLocaleUpperCase() === s) {

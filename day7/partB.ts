@@ -1,6 +1,6 @@
 import { readFileSync } from "fs";
 
-const input = readFileSync("./input").toString();
+const input = readFileSync("./input.txt").toString();
 
 const path: string[] = [];
 const sizes = new Map();
