@@ -1,4 +1,4 @@
-export default function (input: string) {
+export default function (input: string): number {
   const inp = input.trim().split("\n");
   const tailPos = new Set().add("0,0");
   let head = [0, 0],

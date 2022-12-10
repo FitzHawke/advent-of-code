@@ -3,18 +3,16 @@ import { resolve } from "path";
 import partA from "./partA";
 import partB from "./partB";
 
-const day = "day09"
+const day = "day10"
 const answers = {
-  "ae": 13,
-  "ai": 6236,
-  "be": 1,
-  "be2": 36,
-  "bi": 2449
+  "ae": 13140,
+  "ai": 13680,
+  "be": "##..##..##..##..##..##..##..##..##..##..\n###...###...###...###...###...###...###.\n####....####....####....####....####....\n#####.....#####.....#####.....#####.....\n######......######......######......####\n#######.......#######.......#######.....",
+  "bi": "###..####..##..###..#..#.###..####.###..\n#..#....#.#..#.#..#.#.#..#..#.#....#..#.\n#..#...#..#....#..#.##...#..#.###..###..\n###...#...#.##.###..#.#..###..#....#..#.\n#....#....#..#.#....#.#..#....#....#..#.\n#....####..###.#....#..#.#....####.###.."
 }
 
 let input = promises.readFile(resolve(process.cwd(), day, 'input.txt'), 'utf8');
 let example = promises.readFile(resolve(process.cwd(), day, 'example.txt'), 'utf8');
-let example2 = promises.readFile(resolve(process.cwd(), day, 'example2.txt'), 'utf8');
 
 describe('Part A', () => {
   it('should produce the correct value for example', async () => {
@@ -28,9 +26,6 @@ describe('Part A', () => {
 describe('Part B', () => {
   it('should produce the correct value for example', async () => {
     expect(partB(await example)).toEqual(answers.be)
-  })
-  it('should produce the correct value for example 2', async () => {
-    expect(partB(await example2)).toEqual(answers.be2)
   })
   it('should produce the correct value for input', async () => {
     expect(partB(await input)).toEqual(answers.bi)

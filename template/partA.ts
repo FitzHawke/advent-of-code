@@ -1,1 +1,3 @@
-export default function(input: string) { return 0 }
+export default function (input: string): number {
+  return 0;
+}

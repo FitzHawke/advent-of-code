@@ -1,4 +1,4 @@
-export default function (input: string) {
+export default function (input: string): number {
   const inp = input.trim().split("\n");
   const tailPos = new Set().add("0,0");
   let knots: number[][] = new Array(10).fill([0, 0]);
@@ -29,6 +29,6 @@ export default function (input: string) {
       }
     }
   }
-  
+
   return tailPos.size;
 }
