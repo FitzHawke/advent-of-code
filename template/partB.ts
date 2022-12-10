@@ -1,3 +1,1 @@
-import { readFileSync } from "fs";
-
-const input = readFileSync("./input.txt").toString();
+export default function(input: string) {}
