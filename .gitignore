@@ -1,4 +1,7 @@
 node_modules
 
-*/example.txt
-*/input.txt
+example*.txt
+input.txt
+
+!template/example.txt
+!template/input.txt
