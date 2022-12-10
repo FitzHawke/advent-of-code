@@ -1,1 +1,1 @@
-export default function(input: string) {}
+export default function(input: string) { return 0 }
