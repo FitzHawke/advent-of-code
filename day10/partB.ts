@@ -4,7 +4,7 @@ export default function (input: string): string {
     count = 0,
     skip = false;
 
-  const crt: string[][] = [...new Array(6)].map(arr => new Array(40).fill("."))
+  const crt: string[][] = [...new Array(6)].map(() => new Array(40).fill("."))
 
   for (let i = 0; i < cycles.length; i++) {
     const num = cycles[i - 1]?.split(" ")[1];
