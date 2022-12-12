@@ -1,4 +1,4 @@
-interface monkey {
+type monkey = {
   items: number[];
   op: "p" | "t" | "e";
   opNum: number;
@@ -6,7 +6,7 @@ interface monkey {
   true: number;
   false: number;
   touched: number;
-}
+};
 
 const parser = (input: string): monkey[] => {
   return input.split("\n\n").map((monkeyList) => {
@@ -40,7 +40,12 @@ const parser = (input: string): monkey[] => {
   });
 };
 
-const operation = (old: number, op: string, num: number, div: number): number => {
+const operation = (
+  old: number,
+  op: string,
+  num: number,
+  div: number
+): number => {
   let val = 0;
   if (op === "e") val = old * old;
   else if (op === "t") val = old * num;
@@ -48,13 +53,13 @@ const operation = (old: number, op: string, num: number, div: number): number =>
   return val % div;
 };
 
-const divisor = (monkeys:monkey[]): number => {
+const divisor = (monkeys: monkey[]): number => {
   let div = 1;
   for (const mon of monkeys) {
-    div *= mon.test
+    div *= mon.test;
   }
   return div;
-}
+};
 
 export default function (input: string): number {
   const monkeys = parser(input);

@@ -1,4 +1,4 @@
-interface monkey {
+type monkey = {
   items: number[];
   op: "p" | "t" | "e";
   opNum: number;
@@ -6,7 +6,7 @@ interface monkey {
   true: number;
   false: number;
   touched: number;
-}
+};
 
 const parser = (input: string): monkey[] => {
   return input.split("\n\n").map((monkeyList) => {
