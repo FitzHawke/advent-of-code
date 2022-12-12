@@ -28,23 +28,22 @@ export default function (input: string): number {
     for (let j = 0; j < matrix[0].length; j++) {
       if (matrix[i][j] === "E") {
         end = [i, j];
-        matrix[i][j] = String.fromCharCode("z".charCodeAt(0) + 1); // "{"
+        matrix[i][j] = "z";
       }
 
       if (matrix[i][j] === "S") {
-        start = [i, j];
-        matrix[i][j] = String.fromCharCode("a".charCodeAt(0) - 1); // "`"
+        matrix[i][j] = "a";
       }
     }
   }
 
-  let steps = Infinity;
+  let steps = 0;
   const queue: [loc, number][] = [[end, 0]];
   while (queue.length) {
     const [cur, count] = queue.shift()!;
     if (seen.has(cur.join("-"))) continue;
     if (matrix[cur[0]][cur[1]] === "a") {
-      steps = Math.min(count, steps);
+      steps = count;
       break;
     }
     seen.add(cur.join("-"));
