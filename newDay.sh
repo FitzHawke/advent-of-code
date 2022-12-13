@@ -1,14 +1,14 @@
 #!/bin/bash
 
-# arg 1 - year
-# arg 2 - day#
+# arg 1 - 4 digit year as 2022
+# arg 2 - day of challenge as 1-2 digits. 1-25
 
-echo "$1"
-echo "$2"
+day=$(printf "%.2i" $2)
 
-mkdir -p ./$1/day$2
-cp template/* ./$1/day$2/
+mkdir -p ./$1/day$day
+cp template/* ./$1/day$day/
 
-sed -i "s/template/day$2/" ./$1/day$2/index.test.ts
+sed -i "s/tempYear/$1/" ./$1/day$day/index.test.ts
+sed -i "s/tempDay/day$day/" ./$1/day$day/index.test.ts
 
-echo https://adventofcode.com/$1/day/$2 >./$1/day$2/README.md
+echo https://adventofcode.com/$1/day/$2 >./$1/day$day/README.md
