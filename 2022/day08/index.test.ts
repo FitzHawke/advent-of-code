@@ -4,12 +4,12 @@ import partA from './partA';
 import partB from './partB';
 
 const year = '2022';
-const day = 'day12';
+const day = 'day08';
 const answers = {
-  ae: 31,
-  ai: 456,
-  be: 29,
-  bi: 454,
+  ae: 21,
+  ai: 1533,
+  be: 8,
+  bi: 345744,
 };
 
 let input = promises.readFile(

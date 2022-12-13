@@ -3,6 +3,7 @@ import { resolve } from 'path';
 import partA from './partA';
 import partB from './partB';
 
+const year = '2022';
 const day = 'day09';
 const answers = {
   ae: 13,
@@ -12,13 +13,16 @@ const answers = {
   bi: 2449,
 };
 
-let input = promises.readFile(resolve(process.cwd(), day, 'input.txt'), 'utf8');
+let input = promises.readFile(
+  resolve(process.cwd(), year, day, 'input.txt'),
+  'utf8',
+);
 let example = promises.readFile(
-  resolve(process.cwd(), day, 'example.txt'),
+  resolve(process.cwd(), year, day, 'example.txt'),
   'utf8',
 );
 let example2 = promises.readFile(
-  resolve(process.cwd(), day, 'example2.txt'),
+  resolve(process.cwd(), year, day, 'example2.txt'),
   'utf8',
 );
 

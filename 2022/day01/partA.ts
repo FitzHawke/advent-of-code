@@ -1,19 +1,17 @@
-import { readFileSync } from 'fs';
+export default function (input: string): number {
+  let arr = input.split('\n');
 
-const input = readFileSync('./input.txt').toString();
+  let totals: number[] = [];
+  let count = 0;
 
-let arr = input.split('\n');
-
-let totals: number[] = [];
-let count = 0;
-
-for (let i = 0; i < arr.length; i++) {
-  if (arr[i] === '') {
-    totals.push(count);
-    count = 0;
-  } else {
-    count += Number(arr[i]);
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === '') {
+      totals.push(count);
+      count = 0;
+    } else {
+      count += Number(arr[i]);
+    }
   }
+  totals.push(count);
+  return Math.max(...totals);
 }
-totals.push(count);
-console.log(Math.max(...totals));

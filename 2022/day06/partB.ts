@@ -1,12 +1,5 @@
-import { readFileSync } from 'fs';
+import partA from './partA';
 
-const input = readFileSync('./input.txt').toString();
-
-let len = 14;
-for (let i = len; i < input.length; i++) {
-  let set = new Set(input.slice(i - len, i));
-  if (set.size === len) {
-    console.log(i);
-    break;
-  }
+export default function (input: string): number {
+  return partA(input, 14);
 }
