@@ -2,13 +2,18 @@
   "scripts": {
     "eslint:fix": "eslint --fix",
     "prettier": "prettier --write .",
-    "test": "jest"
+    "test": "jest",
+    "tdd": "jest --watch"
   },
   "jest": {
     "displayName": "AOC-2022",
     "transform": {
       "\\.(t|j)sx?$": "@swc/jest"
-    }
+    },
+    "testMatch": [
+      "**/index.test.ts",
+      "!**/template/index.test.ts"
+    ]
   },
   "devDependencies": {
     "@swc/core": "^1.3.22",

@@ -2,8 +2,8 @@ type recArr = Array<recArr | number> | number;
 
 export const compare = (l: recArr, r: recArr): boolean | undefined => {
   if (typeof l === 'number' && typeof r === 'number') {
-    if (Number(l) > Number(r)) return false;
-    else if (Number(l) < Number(r)) return true;
+    if (l > r) return false;
+    else if (l < r) return true;
     return undefined;
   } else if (Array.isArray(l) && Array.isArray(r)) {
     for (let i = 0; i < l.length && i < r.length; i++) {
