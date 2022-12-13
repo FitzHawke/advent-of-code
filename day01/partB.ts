@@ -1,14 +1,14 @@
-import { readFileSync } from "fs";
+import { readFileSync } from 'fs';
 
-const input = readFileSync("./input.txt").toString();
+const input = readFileSync('./input.txt').toString();
 
-let arr = input.split("\n");
+let arr = input.split('\n');
 
 let totals: number[] = [];
 let count = 0;
 
 for (let i = 0; i < arr.length; i++) {
-  if (arr[i] === "") {
+  if (arr[i] === '') {
     totals.push(count);
     count = 0;
   } else {

@@ -19,20 +19,19 @@ const canStep = (cur: loc, target: loc, matrix: string[][]): boolean => {
 };
 
 export default function (input: string): number {
-  const matrix: string[][] = input.split("\n").map((l) => l.split(""));
+  const matrix: string[][] = input.split('\n').map((l) => l.split(''));
   const seen: Set<string> = new Set();
-  let start: loc = [0, 0];
   let end: loc = [0, 0];
 
   for (let i = 0; i < matrix.length; i++) {
     for (let j = 0; j < matrix[0].length; j++) {
-      if (matrix[i][j] === "E") {
+      if (matrix[i][j] === 'E') {
         end = [i, j];
-        matrix[i][j] = "z";
+        matrix[i][j] = 'z';
       }
 
-      if (matrix[i][j] === "S") {
-        matrix[i][j] = "a";
+      if (matrix[i][j] === 'S') {
+        matrix[i][j] = 'a';
       }
     }
   }
@@ -41,19 +40,19 @@ export default function (input: string): number {
   const queue: [loc, number][] = [[end, 0]];
   while (queue.length) {
     const [cur, count] = queue.shift()!;
-    if (seen.has(cur.join("-"))) continue;
-    if (matrix[cur[0]][cur[1]] === "a") {
+    if (seen.has(cur.join('-'))) continue;
+    if (matrix[cur[0]][cur[1]] === 'a') {
       steps = count;
       break;
     }
-    seen.add(cur.join("-"));
+    seen.add(cur.join('-'));
     queue.push(
       ...dirs
         .map(
           (dir) =>
-            [[cur[0] + dir[0], cur[1] + dir[1]], count + 1] as [loc, number]
+            [[cur[0] + dir[0], cur[1] + dir[1]], count + 1] as [loc, number],
         )
-        .filter((step) => canStep(cur, step[0], matrix))
+        .filter((step) => canStep(cur, step[0], matrix)),
     );
   }
 

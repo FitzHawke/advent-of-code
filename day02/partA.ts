@@ -1,16 +1,16 @@
-import { readFileSync } from "fs";
+import { readFileSync } from 'fs';
 
-const input = readFileSync("./input.txt").toString();
+const input = readFileSync('./input.txt').toString();
 
 let hash = new Map()
-  .set("A", 1)
-  .set("B", 2)
-  .set("C", 3)
-  .set("X", 1)
-  .set("Y", 2)
-  .set("Z", 3);
+  .set('A', 1)
+  .set('B', 2)
+  .set('C', 3)
+  .set('X', 1)
+  .set('Y', 2)
+  .set('Z', 3);
 
-let games = input.split("\n");
+let games = input.split('\n');
 let score = 0;
 
 for (let game of games) {

@@ -1,7 +1,7 @@
-import { readFileSync } from "fs";
-const input = readFileSync("./input.txt").toString();
+import { readFileSync } from 'fs';
+const input = readFileSync('./input.txt').toString();
 
-const trees = input.split("\n");
+const trees = input.split('\n');
 let count = (trees.length + trees[0].length - 2) * 2;
 const dirs: number[][] = [
   [-1, 0],
@@ -39,7 +39,7 @@ let maxRate = 0;
 for (let i = 0; i < trees.length; i++) {
   for (let j = 0; j < trees[0].length; j++) {
     const tree = Number(trees[i][j]);
-    maxRate = Math.max(rating(i,j,tree), maxRate)
+    maxRate = Math.max(rating(i, j, tree), maxRate);
   }
 }
 

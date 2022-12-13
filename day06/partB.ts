@@ -1,6 +1,6 @@
-import { readFileSync } from "fs";
+import { readFileSync } from 'fs';
 
-const input = readFileSync("./input.txt").toString();
+const input = readFileSync('./input.txt').toString();
 
 let len = 14;
 for (let i = len; i < input.length; i++) {

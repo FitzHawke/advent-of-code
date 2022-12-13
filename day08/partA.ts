@@ -1,7 +1,7 @@
-import { readFileSync } from "fs";
-const input = readFileSync("./input.txt").toString();
+import { readFileSync } from 'fs';
+const input = readFileSync('./input.txt').toString();
 
-const trees = input.split("\n");
+const trees = input.split('\n');
 let count = (trees.length + trees[0].length - 2) * 2;
 const dirs: number[][] = [
   [-1, 0],

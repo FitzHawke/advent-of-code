@@ -1,6 +1,6 @@
 type monkey = {
   items: number[];
-  op: "p" | "t" | "e";
+  op: 'p' | 't' | 'e';
   opNum: number;
   test: number;
   true: number;
@@ -9,29 +9,29 @@ type monkey = {
 };
 
 const parser = (input: string): monkey[] => {
-  return input.split("\n\n").map((monkeyList) => {
-    return monkeyList.split("\n").reduce((acc, line): monkey => {
-      const l = line.split(": ");
-      if (l[0].trim().startsWith("S")) {
-        acc.items = l[1].split(", ").map(Number);
-      } else if (l[0].trim().startsWith("O")) {
-        const [_, oper, num] = l[1].split(" = ")[1].split(" ");
-        if (num === "old") {
-          acc.op = "e";
+  return input.split('\n\n').map((monkeyList) => {
+    return monkeyList.split('\n').reduce((acc, line): monkey => {
+      const l = line.split(': ');
+      if (l[0].trim().startsWith('S')) {
+        acc.items = l[1].split(', ').map(Number);
+      } else if (l[0].trim().startsWith('O')) {
+        const [_, oper, num] = l[1].split(' = ')[1].split(' ');
+        if (num === 'old') {
+          acc.op = 'e';
           acc.opNum = 2;
-        } else if (oper === "*") {
-          acc.op = "t";
+        } else if (oper === '*') {
+          acc.op = 't';
           acc.opNum = Number(num);
         } else {
-          acc.op = "p";
+          acc.op = 'p';
           acc.opNum = Number(num);
         }
-      } else if (l[0].trim().startsWith("T")) {
-        acc.test = Number(l[1].split(" ").at(-1));
-      } else if (l[0].split(" ").at(-1) === "true") {
-        acc.true = Number(l[1].split(" ").at(-1));
-      } else if (l[0].split(" ").at(-1) === "false") {
-        acc.false = Number(l[1].split(" ").at(-1));
+      } else if (l[0].trim().startsWith('T')) {
+        acc.test = Number(l[1].split(' ').at(-1));
+      } else if (l[0].split(' ').at(-1) === 'true') {
+        acc.true = Number(l[1].split(' ').at(-1));
+      } else if (l[0].split(' ').at(-1) === 'false') {
+        acc.false = Number(l[1].split(' ').at(-1));
         acc.touched = 0;
       }
 
@@ -42,9 +42,9 @@ const parser = (input: string): monkey[] => {
 
 const operation = (old: number, op: string, num: number): number => {
   let val = 0;
-  if (op === "e") val = old * old;
-  else if (op === "t") val = old * num;
-  else if (op === "p") val = old + num;
+  if (op === 'e') val = old * old;
+  else if (op === 't') val = old * num;
+  else if (op === 'p') val = old + num;
   return Math.floor(val / 3);
 };
 
