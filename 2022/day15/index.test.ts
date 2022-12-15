@@ -22,7 +22,7 @@ let example = promises.readFile(
   'utf8',
 );
 
-describe('Part A', () => {
+describe(`${year}-${day}-Part A`, () => {
   it('should produce the correct value for example', async () => {
     expect(partA(await example, 10)).toEqual(answers.ae);
   });
@@ -31,7 +31,7 @@ describe('Part A', () => {
   });
 });
 
-describe('Part B', () => {
+describe(`${year}-${day}-Part B`, () => {
   it('should produce the correct value for example', async () => {
     expect(partB(await example, 20)).toEqual(answers.be);
   });

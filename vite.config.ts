@@ -10,5 +10,15 @@ export default defineConfig({
       '.cache',
       '**/template/**',
     ],
+    benchmark: {
+      exclude: [
+        'node_modules',
+        'dist',
+        '.idea',
+        '.git',
+        '.cache',
+        '**/template/**',
+      ],
+    },
   },
 });

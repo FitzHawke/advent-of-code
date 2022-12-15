@@ -1,9 +1,18 @@
 {
+  "name": "advent-of-code",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "eslint:fix": "eslint --fix",
     "prettier": "prettier --write .",
-    "test": "vitest"
+    "test": "vitest run",
+    "tdd": "vitest",
+    "bench": "vitest bench"
   },
+  "keywords": [],
+  "author": "Will Featherston <will.featherston@gmail.com>",
+  "license": "MIT",
   "devDependencies": {
     "@types/node": "^18.11.12",
     "@typescript-eslint/eslint-plugin": "^5.46.1",
