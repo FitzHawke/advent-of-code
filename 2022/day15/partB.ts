@@ -24,7 +24,7 @@ const parse = (rawLocs: string[]): Loc[] => {
   return locs;
 };
 
-const checkOverlap = (cur: range, next: range): boolean => {
+export const checkOverlap = (cur: range, next: range): boolean => {
   if (cur[0] <= next[0] && next[1] <= cur[1]) return true;
   else if (next[0] <= cur[0] && cur[1] <= next[1]) return true;
   else if (cur[0] <= next[0] && next[0] <= cur[1]) return true;

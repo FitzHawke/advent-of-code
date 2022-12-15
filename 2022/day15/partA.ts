@@ -1,14 +1,17 @@
-// Need to rewrite D:
-export type SMaps = {
-  [key: number]: SensorMap;
+import { checkOverlap } from './partB';
+
+type Loc = {
+  s: coords;
+  b: coords;
 };
-type SensorMap = Map<number, Loc>;
-type Loc = 'B' | 'S' | '#';
+type coords = {
+  x: number;
+  y: number;
+};
+type range = [number, number];
 
-const buildMap = (rawLocs: string[], row: number): SMaps => {
-  const map = {} as SMaps;
-  map[row] = new Map() as SensorMap;
-
+const parse = (rawLocs: string[]): Loc[] => {
+  const locs: Loc[] = [];
   for (const loc of rawLocs) {
     const [sLoc, bLoc] = loc.split(':');
     const [x1, y1] = sLoc
@@ -18,26 +21,50 @@ const buildMap = (rawLocs: string[], row: number): SMaps => {
       .split(',')
       .map((ele) => Number(ele.split('=').at(-1)));
 
-    const dist = Math.abs(x1 - x2) + Math.abs(y1 - y2);
-    // if (!map[y1 + dist] || !map[y1 - dist]) addRows(y1 - dist, y1 + dist);
-
-    if (y1 === row) map[y1].set(x1, 'S');
-    if (y2 === row) map[y2].set(x2, 'B');
-
-    const width = dist - Math.abs(y1 - row);
-    for (let j = x1 - width; j <= x1 + width; j++) {
-      if (!map[row].has(j)) map[row].set(j, '#');
-    }
+    locs.push({ s: { x: x1, y: y1 }, b: { x: x2, y: y2 } });
   }
-  return map;
+  return locs;
 };
 
 export default function (input: string, row: number): number {
-  const map = buildMap(input.split('\n'), row);
+  const locs = parse(input.split('\n'));
+  const SBLoc = new Set() as Set<number>;
+
+  for (const loc of locs) {
+    if (loc.b.y === row) SBLoc.add(loc.b.x);
+    if (loc.s.y === row) SBLoc.add(loc.s.x);
+  }
+
+  const ranges: range[] = [];
+  for (const loc of locs) {
+    const radius = Math.abs(loc.s.x - loc.b.x) + Math.abs(loc.s.y - loc.b.y);
+    const dist = Math.abs(loc.s.y - row);
+    if (dist <= radius) {
+      const xMin = loc.s.x - (radius - dist);
+      const xMax = loc.s.x + (radius - dist);
+      if (ranges.length === 0) {
+        ranges.push([xMin, xMax]);
+      } else {
+        let curMin = xMin;
+        let curMax = xMax;
+        for (let j = ranges.length - 1; j >= 0; j--) {
+          let [curX1, curX2] = ranges[j];
+          if (checkOverlap([curMin, curMax], [curX1, curX2])) {
+            curMin = Math.min(curMin, curX1);
+            curMax = Math.max(curMax, curX2);
+            ranges.splice(j, 1);
+          }
+        }
+        ranges.push([curMin, curMax]);
+      }
+    }
+  }
 
   let count = 0;
-  for (const val of map[row].values()) {
-    if (val === '#') count++;
+  for (const range of ranges) {
+    for (let i = range[0]; i <= range[1]; i++) {
+      if (!SBLoc.has(i)) count++;
+    }
   }
 
   return count;
