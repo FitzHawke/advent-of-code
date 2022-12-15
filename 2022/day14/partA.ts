@@ -1,6 +1,6 @@
 type space = '#' | 'o';
 export type mapCol = Map<number, space>;
-type coords = [number, number];
+export type coords = [number, number];
 
 const buildWall = (dir1: coords, dir2: coords, map: mapCol[]): mapCol[] => {
   const [x1, y1] = dir1,
@@ -41,17 +41,21 @@ export const buildSlice = (structures: string[]): mapCol[] => {
 const dropSand = (map: mapCol[]): number => {
   let sand = 0,
     done = false;
+  let stack = [[500, 0]] as coords[];
   while (!done) {
     sand++;
     let stopped = false;
-    let [x, y] = [500, 0];
+    let [x, y] = stack.pop() || [500, 0];
     while (!stopped) {
       if (!map[y + 1].has(x)) {
+        stack.push([x, y]);
         y += 1;
       } else if (!map[y + 1].has(x - 1)) {
+        stack.push([x, y]);
         y += 1;
         x -= 1;
       } else if (!map[y + 1].has(x + 1)) {
+        stack.push([x, y]);
         y += 1;
         x += 1;
       } else {
