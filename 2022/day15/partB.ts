@@ -69,7 +69,6 @@ export default function (input: string, maxSize: number): number {
       } else {
         missing = ranges[1][1] + 1;
       }
-      console.log(missing, i, ranges);
       return missing * 4000000 + i;
     }
   }
