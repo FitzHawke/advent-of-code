@@ -11,7 +11,7 @@ cp template/* ./$1/day$day/
 sed -i "s/tempYear/$1/" ./$1/day$day/index.test.ts
 sed -i "s/tempDay/day$day/" ./$1/day$day/index.test.ts
 
-sed -i "s/tempYear/$1/" ./$1/day$day/index.bench.ts
-sed -i "s/tempDay/day$day/" ./$1/day$day/index.bench.ts
+sed -i "s/##/$day/" ./$1/day$day/partA.ts
+sed -i "s/##/$day/" ./$1/day$day/partB.ts
 
 echo https://adventofcode.com/$1/day/$2 >./$1/day$day/README.md

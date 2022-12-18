@@ -2,13 +2,11 @@
   "name": "advent-of-code",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "eslint:fix": "eslint --fix",
     "prettier": "prettier --write .",
     "test": "vitest run",
-    "tdd": "vitest",
-    "bench": "vitest bench"
+    "tdd": "vitest"
   },
   "keywords": [],
   "author": "Will Featherston <will.featherston@gmail.com>",
