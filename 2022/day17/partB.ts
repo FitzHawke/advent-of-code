@@ -98,10 +98,10 @@ const main = (input: string, rockDrops: number): number => {
     cycleCount = 0;
 
   while (count < rockDrops - 1) {
-    // solution to weird off by 1 error ¯\_(ツ)_/¯
+    // solution to weird off by 1 error is to stop a cycle early. ¯\_(ツ)_/¯
     if (useMemo) {
-      const infoFromMemo = memo.get(oldMem);
-      oldMem = infoFromMemo!.prevLines;
+      const infoFromMemo = memo.get(memNum);
+      memNum = infoFromMemo!.prevLines;
       if (infoFromMemo!.cycle && !cycling) {
         cycling = true;
       } else if (infoFromMemo!.cycle) {
@@ -147,9 +147,9 @@ const main = (input: string, rockDrops: number): number => {
       }
       oldMem = memNum;
       newRock = (newRock + 1) % rocks.length;
-      if (memo.has(oldMem)) {
+      if (memo.has(memNum)) {
         useMemo = true;
-        memo.set(oldMem, { ...memo.get(oldMem)!, cycle: true });
+        memo.set(memNum, { ...memo.get(memNum)!, cycle: true });
         cycleHeight = height;
         cycleCount = count;
         continue;
