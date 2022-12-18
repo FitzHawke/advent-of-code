@@ -58,27 +58,22 @@ export const parseInputs = (inputs: string[]): DVI => {
 const main = (input: string, time: number): number => {
   const { valves, dists, impt } = parseInputs(input.split('\n'));
 
-  const findBest = (
-    cur: string,
-    time: number,
-    seen: Set<string>,
-    important: string[],
-  ): number => {
-    seen.add(cur);
-    important = important.filter((i) => !seen.has(i));
+  const findBest = (cur: string, time: number, seen: string[]): number => {
+    seen.push(cur);
+    const important = impt.filter((i) => !seen.includes(i));
     let best = 0;
 
     for (const im of important) {
       const timeLeft = time - dists[[cur, im].join('-')] - 1;
       if (timeLeft >= 0) {
         let flow = valves![im].rate * timeLeft;
-        flow += findBest(im, timeLeft, new Set(...seen), [...important]);
+        flow += findBest(im, timeLeft, [...seen]);
         if (flow > best) best = flow;
       }
     }
     return best;
   };
-  return findBest('AA', time, new Set(), impt);
+  return findBest('AA', time, []);
 };
 
 export default function (input: string, time: number): number {

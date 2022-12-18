@@ -32,10 +32,10 @@ describe(`${year}-${day}-Part A`, () => {
 });
 
 describe(`${year}-${day}-Part B`, () => {
-  it.skip('should produce the correct value for example', async () => {
+  it('should produce the correct value for example', async () => {
     expect(partB(await example, 26)).toEqual(answers.be);
   });
-  it.skip('should produce the correct value for input', async () => {
+  it('should produce the correct value for input', async () => {
     expect(partB(await input, 26)).toEqual(answers.bi);
   });
 });
