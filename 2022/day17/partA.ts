@@ -42,7 +42,7 @@ const getWidth = (rock: Coord[]): number => {
   for (const loc of rock) {
     width = Math.max(width, loc[0]);
   }
-  return width + 1;
+  return width; // 0 if 1 block wide
 };
 
 const checkCollision = (
@@ -52,9 +52,9 @@ const checkCollision = (
   bottom: number,
   width: number,
 ): boolean => {
-  if (bottom < 0) return true;
+  if (bottom < 1) return true;
   if (left < 0) return true;
-  if (left + width > 7) return true;
+  if (left + width >= 7) return true;
   for (const loc of rock) {
     if (tower.has([loc[0] + left, loc[1] + bottom].join('-'))) return true;
   }
@@ -72,7 +72,7 @@ const main = (input: string, rockDrops: number): number => {
   while (count < rockDrops) {
     const rock = rocks[newRock];
     const width = getWidth(rock);
-    let rockLoc: Coord = [2, height + 3];
+    let rockLoc: Coord = [2, height + 4];
     let moving = true;
     while (moving) {
       let moveDir = 0;
@@ -89,7 +89,7 @@ const main = (input: string, rockDrops: number): number => {
         moving = false;
         for (const loc of rock) {
           tower.add([loc[0] + rockLoc[0], loc[1] + rockLoc[1]].join('-'));
-          height = Math.max(height, loc[1] + rockLoc[1] + 1);
+          height = Math.max(height, loc[1] + rockLoc[1]);
         }
       } else {
         rockLoc[1] -= 1;
