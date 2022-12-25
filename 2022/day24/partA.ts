@@ -133,8 +133,15 @@ export const calcMinMax = (map: BlizMap): MinMax => {
     maxY: maxY - 1,
     start: [minX + 1, minY].join(','),
     end: [maxX - 1, maxY].join(','),
-    maxMaps: (maxX - minX - 1) * (maxY - minY - 1),
+    maxMaps: lcm(maxX - minX - 1, maxY - minY - 1),
   };
+};
+
+const lcm = (x: number, y: number): number => {
+  for (let i = 1; i < y; i++) {
+    if ((x * i) % y === 0) return x * i;
+  }
+  return x * y;
 };
 
 const main = (input: string): number => {
@@ -143,6 +150,7 @@ const main = (input: string): number => {
   const start = minMax.start.split(',').map(Number);
   const end = minMax.end.split(',').map(Number);
   const steps = findPath(map, minMax, start, end);
+  console.log(minMax);
   return steps;
 };
 
