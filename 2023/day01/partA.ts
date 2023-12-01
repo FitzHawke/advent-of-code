@@ -2,7 +2,7 @@ export const parseInputs = (inputs: string): string[] => {
 	return inputs.trim().split('\n');
 };
 
-const findNumbers = (lines: string[]): number[] => {
+export const findNumbers = (lines: string[]): number[] => {
 	const lineNumbers: number[] = [];
 	lines.map((curLine) => {
 		let first = 0,
@@ -15,7 +15,6 @@ const findNumbers = (lines: string[]): number[] => {
 		}
 		lineNumbers.push(first*10+last);
 	});
-	console.log(lineNumbers);
 	return lineNumbers;
 };
 

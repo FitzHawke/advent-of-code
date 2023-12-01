@@ -8,8 +8,8 @@ const year = '2023';
 const day = 'day01';
 const answers = {
 	ae: 142,
-	ai: 0,
-	be: 0,
+	ai: 54940,
+	be: 281,
 	bi: 0,
 };
 
@@ -19,6 +19,10 @@ let input = promises.readFile(
 );
 let example = promises.readFile(
 	resolve(process.cwd(), year, day, 'example.txt'),
+	'utf8',
+);
+let example2 = promises.readFile(
+	resolve(process.cwd(), year, day, 'example2.txt'),
 	'utf8',
 );
 
@@ -33,9 +37,9 @@ describe(`${year}-${day}-Part A`, () => {
 
 describe(`${year}-${day}-Part B`, () => {
 	it('should produce the correct value for example', async () => {
-		expect(partB(await example)).toEqual(answers.be);
+		expect(partB(await example2)).toEqual(answers.be);
 	});
-	it.skip('should produce the correct value for input', async () => {
+	it('should produce the correct value for input', async () => {
 		expect(partB(await input)).toEqual(answers.bi);
 	});
 });
