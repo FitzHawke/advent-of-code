@@ -13,16 +13,13 @@ export const findNumbers = (lines: string[]): number[] => {
 				if (first === 0) first = +char;
 			}
 		}
-		lineNumbers.push(first*10+last);
+		lineNumbers.push(first * 10 + last);
 	});
 	return lineNumbers;
 };
 
 const main = (input: string): number => {
-	return findNumbers(parseInputs(input)).reduce(
-		(acc, cur) => (acc += cur),
-		0,
-	);
+	return findNumbers(parseInputs(input)).reduce((acc, cur) => (acc += cur), 0);
 };
 
 export default function (input: string): number {
