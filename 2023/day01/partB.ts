@@ -20,7 +20,6 @@ const replaceTextNums = (line: string): string => {
 	for (const numConv of Object.keys(numberMap)) {
 		newLine = newLine.replaceAll(numConv, numberMap[numConv]);
 	}
-	console.log(line, newLine);
 	return newLine;
 };
 
@@ -31,7 +30,7 @@ const main = (input: string): number => {
 };
 
 export default function (input: string): number {
-	console.log('\nDay 01: Title\nPart B');
+	console.log('\nDay 01: Trebuchet?!\nPart B');
 	const startTime = new Date();
 	const result = main(input);
 	console.log(`Time elapsed: ${new Date().valueOf() - startTime.valueOf()}ms`);
