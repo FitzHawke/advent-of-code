@@ -1,42 +1,55 @@
-type handful = {
-	red: number
-	green: number
-	blue: number
-}
-
-type games = {[key:number]: handful[]}
-
-export const parseInputs = (inputs: string): games => {
-	const gameList = {} as games
-	inputs.trim().split('\n').map((curGame,i)=>{
-		let handfuls:handful[] = []
-		curGame.split(': ')[1].split('; ').map(curSet=>{
-			let red=0,green=0,blue=0;
-			let curColours = curSet.split(', ')
-			for (const colour of curColours) {
-				const [num,col] = colour.split(' ')
-				if (col === "red") red = +num;
-				else if (col === "green") green = +num;
-				else if (col === "blue") blue = +num;
-			}
-			handfuls.push({red,green,blue}as handful)
-		})
-		gameList[i+1] = handfuls
-	});
-	return gameList
+export type handful = {
+	red: number;
+	green: number;
+	blue: number;
 };
 
-const countPossibleGames = (gameList:games, colours:handful): number => {
+export type games = { [key: number]: handful[] };
+
+export const parseInputs = (inputs: string): games => {
+	const gameList = {} as games;
+	inputs
+		.trim()
+		.split('\n')
+		.map((curGame, i) => {
+			let handfuls: handful[] = [];
+			curGame
+				.split(': ')[1]
+				.split('; ')
+				.map((curSet) => {
+					let red = 0,
+						green = 0,
+						blue = 0;
+					let curColours = curSet.split(', ');
+					for (const colour of curColours) {
+						const [num, col] = colour.split(' ');
+						if (col === 'red') red = +num;
+						else if (col === 'green') green = +num;
+						else if (col === 'blue') blue = +num;
+					}
+					handfuls.push({ red, green, blue } as handful);
+				});
+			gameList[i + 1] = handfuls;
+		});
+	return gameList;
+};
+
+const countPossibleGames = (gameList: games, colours: handful): number => {
 	let possibleCount = 0;
 	for (const id in gameList) {
 		let possible = true;
 		for (const handful of gameList[id]) {
-			if (handful.red > colours.red || handful.green > colours.green || handful.blue > colours.blue) possible = false;
+			if (
+				handful.red > colours.red ||
+				handful.green > colours.green ||
+				handful.blue > colours.blue
+			)
+				possible = false;
 		}
-		if (possible) possibleCount += +id
+		if (possible) possibleCount += +id;
 	}
-	return possibleCount
-}
+	return possibleCount;
+};
 
 const main = (
 	input: string,
@@ -45,7 +58,7 @@ const main = (
 	blue: number,
 ): number => {
 	const gameList = parseInputs(input);
-	return countPossibleGames(gameList,{red,green,blue});
+	return countPossibleGames(gameList, { red, green, blue });
 };
 
 export default function (
