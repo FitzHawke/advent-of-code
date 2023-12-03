@@ -1,10 +1,10 @@
-export type fullSchematic = {
+type fullSchematic = {
 	schema: schematic;
 	width: number;
 	height: number;
 };
 export type schematic = Map<string, string>;
-export const directions = [
+const directions = [
 	[1, -1],
 	[0, -1],
 	[-1, -1],
