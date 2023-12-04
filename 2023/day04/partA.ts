@@ -1,7 +1,8 @@
 type numberGroup = Set<number>;
-type card = {
+export type card = {
 	ownNums: numberGroup;
 	winNums: numberGroup;
+	numberOfCards: number;
 };
 
 export const parseInput = (input: string): card[] => {
@@ -24,7 +25,7 @@ export const parseInput = (input: string): card[] => {
 				.map(Number)
 				.filter((a) => a !== 0),
 		);
-		cards.push({ ownNums, winNums });
+		cards.push({ ownNums, winNums, numberOfCards:1 });
 	});
 
 	return cards;
@@ -34,7 +35,6 @@ const countWins = (cards: card[]): number => {
 	let count = 0;
 
 	for (const card of cards) {
-		console.log(card);
 		let cardCount = 0;
 		for (const num of card.ownNums) {
 			if (card.winNums.has(num)) cardCount++;
