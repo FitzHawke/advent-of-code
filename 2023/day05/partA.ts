@@ -1,4 +1,4 @@
-type almanac = {
+export type almanac = {
 	seeds: number[];
 	maps: {
 		[key:string]: almanacMap[];
@@ -13,7 +13,7 @@ type almanacMap = {
 	rangeLen: number;
 };
 
-const parseInput = (input: string): almanac => {
+export const parseInput = (input: string): almanac => {
 	return input.split('\n\n').reduce((alm, cur, idx) => {
 		if (idx === 0) {
 			alm.seeds = cur.split(': ')[1].split(' ').map(Number);
@@ -23,8 +23,8 @@ const parseInput = (input: string): almanac => {
 			const name = curMap.shift()!.split(' ')[0]
 			alm.maps[name] = curMap.map(dir => {
 				const [dstStart, srcStart, rangeLen] = dir.split(' ').map(Number)
-				const dstEnd = dstStart + rangeLen;
-				const srcEnd = srcStart + rangeLen;
+				const dstEnd = dstStart + rangeLen - 1;
+				const srcEnd = srcStart + rangeLen - 1;
 				return {dstStart, dstEnd, srcStart, srcEnd, rangeLen} as almanacMap
 			})
 		}
@@ -39,7 +39,7 @@ const locateSeeds = (alm:almanac):number => {
 		let curVal = seed;
 		for(const map in alm.maps) {
 			for(const mapping of alm.maps[map]) {
-				if (curVal<mapping.srcEnd && curVal >= mapping.srcStart) {
+				if (curVal<=mapping.srcEnd && curVal > mapping.srcStart) {
 					curVal += mapping.dstStart - mapping.srcStart;
 					break;
 				}
