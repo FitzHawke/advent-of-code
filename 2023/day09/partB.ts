@@ -1,6 +1,4 @@
-export const parseInput = (input: string): number[][] => {
-	return input.split('\n').map((cur) => cur.split(' ').map(Number));
-};
+import { parseInput } from './partA.js';
 
 const extrapolateOasis = (histories: number[][]): number => {
 	let count = 0;
@@ -16,7 +14,7 @@ const extrapolateOasis = (histories: number[][]): number => {
 			diffs.push(curDiffs);
 			if (curDiffs.every((val) => val === 0)) break;
 		}
-		count += diffs.reverse().reduce((acc, cur) => (acc += cur.at(-1)!), 0);
+		count += diffs.reverse().reduce((acc, cur) => (acc = cur.at(0)! - acc), 0);
 	}
 
 	return count;
@@ -28,7 +26,7 @@ const main = (input: string): number => {
 };
 
 export default function (input: string): number {
-	console.log('\nDay 09: Mirage Maintenance\nPart A');
+	console.log('\nDay 09: Mirage Maintenance\nPart B');
 	const startTime = new Date();
 	const result = main(input);
 	console.log(`Time elapsed: ${new Date().valueOf() - startTime.valueOf()}ms`);

@@ -10,7 +10,7 @@ const answers = {
 	ae: 114,
 	ai: 1921197370,
 	be: 2,
-	bi: 0,
+	bi: 1124,
 };
 
 let input = promises.readFile(
@@ -35,7 +35,7 @@ describe(`${year}-${day}-Part B`, () => {
 	it('should produce the correct value for example', async () => {
 		expect(partB(await example)).toEqual(answers.be);
 	});
-	it.skip('should produce the correct value for input', async () => {
+	it('should produce the correct value for input', async () => {
 		expect(partB(await input)).toEqual(answers.bi);
 	});
 });
