@@ -1,0 +1,45 @@
+import { describe, it, expect } from 'vitest';
+import { promises } from 'fs';
+import { resolve } from 'path';
+import partA from './partA.js';
+import partB from './partB.js';
+
+const year = '2023';
+const day = 'day11';
+const answers = {
+	ae: 374,
+	ai: 9734203,
+	be: 1030,
+	be2: 8410,
+	bi: 568914596391,
+};
+
+let input = promises.readFile(
+	resolve(process.cwd(), year, day, 'input.txt'),
+	'utf8',
+);
+let example = promises.readFile(
+	resolve(process.cwd(), year, day, 'example.txt'),
+	'utf8',
+);
+
+describe(`${year}-${day}-Part A`, () => {
+	it('should produce the correct value for example', async () => {
+		expect(partA(await example, 2)).toEqual(answers.ae);
+	});
+	it('should produce the correct value for input', async () => {
+		expect(partA(await input, 2)).toEqual(answers.ai);
+	});
+});
+
+describe(`${year}-${day}-Part B`, () => {
+	it('should produce the correct value for example', async () => {
+		expect(partB(await example, 10)).toEqual(answers.be);
+	});
+	it('should produce the correct value for example', async () => {
+		expect(partB(await example, 100)).toEqual(answers.be2);
+	});
+	it('should produce the correct value for input', async () => {
+		expect(partB(await input, 1000000)).toEqual(answers.bi);
+	});
+});

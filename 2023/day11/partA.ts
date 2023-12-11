@@ -32,7 +32,7 @@ export const parseInput = (input: string): FullMap => {
 	);
 };
 
-export const walkGalaxies = (fullMap: FullMap): number => {
+export const walkGalaxies = (fullMap: FullMap, multiplier: number): number => {
 	const morphSpace = (): void => {
 		const colWithGal = new Set(
 			fullMap.galaxies.map((cur) => cur.split('-')[1]),
@@ -40,7 +40,7 @@ export const walkGalaxies = (fullMap: FullMap): number => {
 		for (let i = 0; i < fullMap.width; i++) {
 			if (!colWithGal.has(String(i))) {
 				for (let j = 0; j < fullMap.length; j++) {
-					fullMap.spaceMap.set(rc(j, i), 2);
+					fullMap.spaceMap.set(rc(j, i), multiplier);
 				}
 			}
 		}
@@ -50,7 +50,7 @@ export const walkGalaxies = (fullMap: FullMap): number => {
 		for (let i = 0; i < fullMap.length; i++) {
 			if (!rowWithGal.has(String(i))) {
 				for (let j = 0; j < fullMap.width; j++) {
-					fullMap.spaceMap.set(rc(i, j), 2);
+					fullMap.spaceMap.set(rc(i, j), multiplier);
 				}
 			}
 		}
@@ -95,15 +95,15 @@ export const walkGalaxies = (fullMap: FullMap): number => {
 	return stepCount;
 };
 
-const main = (input: string): number => {
+const main = (input: string, number:number): number => {
 	const fullMap = parseInput(input);
-	return walkGalaxies(fullMap);
+	return walkGalaxies(fullMap, number);
 };
 
-export default function (input: string): number {
+export default function (input: string, number:number): number {
 	console.log('\nDay 11: Cosmic Expansion\nPart A');
 	const startTime = new Date();
-	const result = main(input);
+	const result = main(input, number);
 	console.log(`Time elapsed: ${new Date().valueOf() - startTime.valueOf()}ms`);
 	return result;
 }
