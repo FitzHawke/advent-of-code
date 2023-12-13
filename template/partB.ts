@@ -1,4 +1,7 @@
+import { parseInput } from "./partA.js";
+
 const main = (input: string): number => {
+	console.log(parseInput(input))
 	return 0;
 };
 

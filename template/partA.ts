@@ -1,4 +1,9 @@
+export const parseInput = (input:string): string[] => {
+	return input.split('\n')
+}
+
 const main = (input: string): number => {
+	console.log(parseInput(input))
 	return 0;
 };
 
