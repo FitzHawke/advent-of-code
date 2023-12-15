@@ -2,10 +2,9 @@ export const parseInput = (input:string): string[] => {
 	return input.split(',')
 }
 
-const calculateHash = (seq:string):number => {
+export const calculateHash = (seq:string):number => {
 	let curVal = 0;
 	for (let i = 0; i < seq.length; i++) {
-		console.log(curVal,seq[i].charCodeAt(0), seq, i)
 		curVal = (curVal + seq[i].charCodeAt(0)) * 17 % 256
 	}
 	return curVal

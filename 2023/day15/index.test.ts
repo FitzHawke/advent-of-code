@@ -9,8 +9,8 @@ const day = 'day15';
 const answers = {
 	ae: 1320,
 	ai: 519603,
-	be: -1,
-	bi: -1,
+	be: 145,
+	bi: 244342,
 };
 
 let input = promises.readFile(
