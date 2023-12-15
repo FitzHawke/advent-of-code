@@ -2,7 +2,7 @@ import { directions, findWeight, parseInput, tiltPlatform } from "./partA.js";
 
 const main = (input: string): number => {
 	const platform = parseInput(input);
-	const tilt = tiltPlatform(Object.keys(directions).map(cur=>directions[cur as keyof typeof directions]), 1000000000);
+	const tilt = tiltPlatform(Object.values(directions), 1000000000);
 	return findWeight(tilt(platform));
 };
 
