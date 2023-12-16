@@ -26,7 +26,7 @@ export const join = (char:string,...args:(string|number)[]): string => {
 	return args.join(char);
 };
 
-export const energize = (board: string[][]): Set<string> => {
+export const energize = (board: string[][],start:number[],startDir:string):number => {
 	const visited = new Set<string>()
 	const energized = new Set<string>()
 
@@ -49,10 +49,9 @@ export const energize = (board: string[][]): Set<string> => {
 		}
 	}
 
-	lightMeUp(0,0,'r');
-	console.log(energized)
+	lightMeUp(start[0],start[1],startDir);
 
-	return energized;
+	return energized.size;
 }
 
 export const parseInput = (input: string): string[][] => {
@@ -61,7 +60,7 @@ export const parseInput = (input: string): string[][] => {
 
 const main = (input: string): number => {
 	const board = parseInput(input)
-	return energize(board).size;
+	return energize(board,[0,0],'r');
 };
 
 export default function (input: string): number {
