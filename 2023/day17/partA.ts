@@ -12,7 +12,7 @@ export const parseInput = (input: string): number[][] => {
 	return input.split('\n').map((cur) => cur.split('').map(Number));
 };
 
-const findBestPath = (
+export const findBestPath = (
 	lossMap: number[][],
 	moveFunc: (
 		lossMap: number[][],
@@ -31,7 +31,7 @@ const findBestPath = (
 		const [r, c, dir] = id.split('_');
 		if (+curVal !== prev) {
 			queue.sort((a,b)=>+a.split('-')[1]-+b.split('-')[1])
-			queue.splice(999)
+			queue.splice(3000)
 			prev = +curVal
 		}
 
