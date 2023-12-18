@@ -5,8 +5,8 @@ const main = (input: string): number => {
 	return 0;
 };
 
-export default function (input: string): number {
-	console.log('\nDay ##: Title\nPart B');
+export default function (input: string, title:string): number {
+	console.log(`\nDay ##: ${title}\nPart B`);
 	const startTime = new Date();
 	const result = main(input);
 	console.log(`Time elapsed: ${new Date().valueOf() - startTime.valueOf()}ms`);

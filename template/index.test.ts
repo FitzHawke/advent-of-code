@@ -4,6 +4,7 @@ import { resolve } from 'path';
 import partA from './partA.js';
 import partB from './partB.js';
 
+const title = 'tempTitle'
 const year = 'tempYear';
 const day = 'tempDay';
 const answers = {
@@ -24,18 +25,18 @@ let example = promises.readFile(
 
 describe(`${year}-${day}-Part A`, () => {
 	it('should produce the correct value for example', async () => {
-		expect(partA(await example)).toEqual(answers.ae);
+		expect(partA(await example, title)).toEqual(answers.ae);
 	});
 	it('should produce the correct value for input', async () => {
-		expect(partA(await input)).toEqual(answers.ai);
+		expect(partA(await input, title)).toEqual(answers.ai);
 	});
 });
 
 describe(`${year}-${day}-Part B`, () => {
 	it('should produce the correct value for example', async () => {
-		expect(partB(await example)).toEqual(answers.be);
+		expect(partB(await example, title)).toEqual(answers.be);
 	});
 	it('should produce the correct value for input', async () => {
-		expect(partB(await input)).toEqual(answers.bi);
+		expect(partB(await input, title)).toEqual(answers.bi);
 	});
 });
