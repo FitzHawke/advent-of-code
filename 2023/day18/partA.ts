@@ -26,11 +26,10 @@ export const pickShoelace = (points: number[][]): number => {
 			acc += (cur[0] - prevR) * (cur[1] + prevC);
 			prevC = cur[1];
 			prevR = cur[0];
-			console.log(acc, cur);
 			return acc;
 		}, 0) / 2;
 	(prevR = 0), (prevC = 0);
-	const walls = points.reduce((acc,cur)=> acc + cur[2],0)
+	const walls = points.reduce((acc, cur) => acc + cur[2], 0);
 	return shoelace + walls / 2 + 1;
 };
 

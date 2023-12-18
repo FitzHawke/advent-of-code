@@ -20,7 +20,7 @@ const main = (input: string): number => {
 };
 
 export default function (input: string): number {
-	console.log('\nDay 16: Title\nPart B');
+	console.log('\nDay 16: The Floor Will Be Lava\nPart B');
 	const startTime = new Date();
 	const result = main(input);
 	console.log(`Time elapsed: ${new Date().valueOf() - startTime.valueOf()}ms`);

@@ -31,7 +31,7 @@ export const findBestPath = (
 		const [r, c, dir] = id.split('_');
 		if (+curVal !== prev) {
 			queue.sort((a,b)=>+a.split('-')[1]-+b.split('-')[1])
-			queue.splice(3000)
+			queue.splice(5000)
 			prev = +curVal
 		}
 
@@ -84,7 +84,7 @@ const main = (input: string): number => {
 };
 
 export default function (input: string): number {
-	console.log('\nDay 17: Title\nPart A');
+	console.log('\nDay 17: Clumsy Crucible\nPart A');
 	const startTime = new Date();
 	const result = main(input);
 	console.log(`Time elapsed: ${new Date().valueOf() - startTime.valueOf()}ms`);
