@@ -16,7 +16,6 @@ export const parseInput = (input: string): { l1: number[]; l2: number[] } => {
 
 const main = (input: string): number => {
 	const lists = parseInput(input);
-	console.log(lists)
 	let count = 0;
 
 	for (let i = 0; i < lists.l1.length; i++) {
