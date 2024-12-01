@@ -3,6 +3,7 @@ export const parseInput = (input: string): { l1: number[]; l2: number[] } => {
 	const l2: number[] = [];
 
 	input
+		.trim()
 		.split('\n')
 		.map((e) =>
 			e.split('   ').map((n, i) => (i === 0 ? l1.push(+n) : l2.push(+n))),

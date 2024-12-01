@@ -2,6 +2,9 @@ node_modules
 
 example*.txt
 input.txt
+puzzle.md
+
+lib/
 
 !template/example.txt
 !template/input.txt
