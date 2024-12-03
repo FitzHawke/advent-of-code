@@ -35,7 +35,6 @@ export const testInstructions = (instructionSet:string, alwaysRun:boolean):numbe
 				}
 
 				if (test[j] === ')' && cur === test[j]){
-					console.log(nums)
 					instructions += nums[0] * nums[1];
 				}
 			}
