@@ -2,27 +2,32 @@ export const parseInput = (input: string): string => {
 	return input.trim().split('\n').join('');
 };
 
-const main = (input: string): number => {
-	const instructionSet = parseInput(input);
+export const testInstructions = (instructionSet:string, alwaysRun:boolean):number => {
 	const test = ['m', 'u', 'l', '(', '#', ',', '#', ')'];
 	let instructions = 0;
+	let goTime = true;
 
 	for (let i = 0; i < instructionSet.length; i++) {
-		if (instructionSet[i] === 'm') {
-			let offset = 0;
+
+		if (!alwaysRun && instructionSet[i] === 'd') {
+			if (instructionSet.slice(i,i+4) === 'do()') goTime = true;
+			if (instructionSet.slice(i,i+7) === "don't()") goTime = false;
+		}
+
+		if (instructionSet[i] === 'm' && (goTime || alwaysRun)) {
 			let nums:number[] = [];
 			for (let j = 0; j < test.length; j++) {
-				const cur = instructionSet[i+j+offset]
+				const cur = instructionSet[i+j]
 				if (cur !== test[j] && test[j]!=='#') break;
 				if (test[j] === '#' && isNaN(Number(cur))) break;
 
 				if (test[j] === '#') {
 					let curNum = '';
 					for (let k = 0; k <= 3 ; k++) {
-						let testNum = instructionSet[i+j+k+offset]
-						if (!isNaN(Number(testNum))) curNum += testNum;
+						let testNum = instructionSet[i+j+k]
+						if (!isNaN(Number(testNum)) && k !== 3) curNum += testNum;
 						else {
-							offset += curNum.length - 1
+							i += curNum.length - 1
 							nums.push(Number(curNum))
 							break;
 						}
@@ -38,6 +43,11 @@ const main = (input: string): number => {
 	}
 
 	return instructions;
+}
+
+const main = (input: string): number => {
+	const instructionSet = parseInput(input);
+	return testInstructions(instructionSet, true)
 };
 
 export default function (input: string, title: string): number {
