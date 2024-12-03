@@ -2,55 +2,35 @@ export const parseInput = (input: string): string => {
 	return input.trim().split('\n').join('');
 };
 
-export const testInstructions = (instructionSet:string, alwaysRun:boolean):number => {
-	const test = ['m', 'u', 'l', '(', '#', ',', '#', ')'];
-	let instructions = 0;
+export const testInstructions = (
+	instructions: string,
+	doAll: boolean,
+): number => {
+	const regex = /mul\(\d+,\d+\)|do\(\)|don't\(\)/gm;
+	const splitInstructions = instructions.matchAll(regex);
+
 	let goTime = true;
+	let sum = 0;
+	for (const ins of splitInstructions) {
+		if (ins[0] === 'do()' && !doAll) goTime = true;
+		else if (ins[0] === "don't()" && !doAll) goTime = false;
 
-	for (let i = 0; i < instructionSet.length; i++) {
-
-		if (!alwaysRun && instructionSet[i] === 'd') {
-			if (instructionSet.slice(i,i+4) === 'do()') goTime = true;
-			if (instructionSet.slice(i,i+7) === "don't()") goTime = false;
-		}
-
-		if (instructionSet[i] === 'm' && (goTime || alwaysRun)) {
-			let nums:number[] = [];
-			for (let j = 0; j < test.length; j++) {
-				const cur = instructionSet[i+j]
-				if (cur !== test[j] && test[j]!=='#') break;
-				if (test[j] === '#' && isNaN(Number(cur))) break;
-
-				if (test[j] === '#') {
-					let curNum = '';
-					for (let k = 0; k <= 3 ; k++) {
-						let testNum = instructionSet[i+j+k]
-						if (!isNaN(Number(testNum)) && k !== 3) curNum += testNum;
-						else {
-							i += curNum.length - 1
-							nums.push(Number(curNum))
-							break;
-						}
-					}
-				}
-
-				if (test[j] === ')' && cur === test[j]){
-					instructions += nums[0] * nums[1];
-				}
-			}
+		if (goTime && ins[0][0] === 'm') {
+			const nums = ins[0].slice(4, -1).split(',').map(Number);
+			sum += nums[0] * nums[1];
 		}
 	}
 
-	return instructions;
-}
+	return sum;
+};
 
 const main = (input: string): number => {
-	const instructionSet = parseInput(input);
-	return testInstructions(instructionSet, true)
+	const instructions = parseInput(input);
+	return testInstructions(instructions, true);
 };
 
 export default function (input: string, title: string): number {
-	console.log(`\nDay 03: ${title}\nPart A`);
+	console.log(`\nDay ##: ${title}\nPart A`);
 	const startTime = new Date();
 	const result = main(input);
 	console.log(`Time elapsed: ${new Date().valueOf() - startTime.valueOf()}ms`);
