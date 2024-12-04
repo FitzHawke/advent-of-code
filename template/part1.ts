@@ -1,5 +1,5 @@
 export const parseInput = (input:string): string[] => {
-	return input.trim().split('\n')
+	return input.trimEnd().split('\n')
 }
 
 const main = (input: string): number => {
@@ -8,7 +8,7 @@ const main = (input: string): number => {
 };
 
 export default function (input: string, title:string): number {
-	console.log(`\nDay ##: ${title}\nPart A`);
+	console.log(`\n${title}\nPart 1`);
 	const startTime = new Date();
 	const result = main(input);
 	console.log(`Time elapsed: ${new Date().valueOf() - startTime.valueOf()}ms`);

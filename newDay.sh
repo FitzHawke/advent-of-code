@@ -3,15 +3,29 @@
 # arg 1 - 4 digit year as 2022
 # arg 2 - day of challenge as 1-2 digits. 1-25
 
+if [[ $# -ne 2 ]]; then
+  echo 'Too many/few arguments, expecting two' >&2
+  exit 1
+fi
+
+if [[ ${#1} -ne 4 ]]; then
+  echo 'Year needs to be 4 digits' >&2
+  exit 1
+fi
+
+if [[ ${#2} -ne 1 ]] && [[ ${#2} -ne 2 ]]; then
+  echo 'Day number needs to be either one or two digits' >&2
+  exit 1
+fi
+
 # Normalize day numbering to 1 or 2 digits
 day_num=$(printf "%.1i" $2)
 day_2num=$(printf "%.2i" $2)
 day_str="day$day_2num"
 
 # setup/reset directory (destructive)
-# TODO test if dest exists before overwriting
 mkdir -p ./$1/$day_str
-cp template/* ./$1/$day_str/
+cp -n template/* ./$1/$day_str/
 
 # download puzzle and input
 aoc download -y $1 -d $day_num -o -i ./$1/$day_str/input.txt -p ./$1/$day_str/puzzle.md
@@ -24,11 +38,8 @@ title=$(head -n 1 $1/$day_str/puzzle.md | awk '{ for(i=4;i<NF;i++) printf $i""FS
 
 # Setup files titles and imports for new day
 sed -i "s/tempYear/$1/" ./$1/$day_str/index.test.ts
-sed -i "s/tempDay/$day_str/" ./$1/$day_str/index.test.ts
+sed -i "s/tempDay/$day_2num/" ./$1/$day_str/index.test.ts
 sed -i "s/tempTitle/$title/" ./$1/$day_str/index.test.ts
-
-sed -i "s/##/$day_2num/" ./$1/$day_str/partA.ts
-sed -i "s/##/$day_2num/" ./$1/$day_str/partB.ts
 
 # add README with title and a link to the puzzle
 echo "## $title" >./$1/$day_str/README.md
@@ -39,7 +50,6 @@ function display_menu() {
   echo "1) submit part 1"
   echo "2) submit part 2"
   echo "3) re-download puzzle for part 2"
-  echo "0) git add and commit"
   echo "q) Quit"
   echo "[*]) run tests"
   echo ""
@@ -64,9 +74,6 @@ while true; do
   3)
     echo "Re-downloading Puzzle"
     aoc download -y $1 -d $day_num -o -P -p ./$1/$day_str/puzzle.md
-    ;;
-  0)
-    echo "Git not implemented yet :("
     ;;
   q | Q)
     echo "Exiting..."

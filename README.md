@@ -38,8 +38,8 @@ The repository structure is organized by year and days:
 
  2023
  ├── day01
- │   ├── partA.ts
- │   ├── partB.ts
+ │   ├── part1.ts
+ │   ├── part2.ts
  │   ├── index.test.ts
  │   ├── README.md
  │   ├── example.txt*
