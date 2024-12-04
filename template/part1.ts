@@ -9,8 +9,8 @@ const main = (input: string): number => {
 
 export default function (input: string, title:string): number {
 	console.log(`\n${title}\nPart 1`);
-	const startTime = new Date();
+	console.time('Time elapsed')
 	const result = main(input);
-	console.log(`Time elapsed: ${new Date().valueOf() - startTime.valueOf()}ms`);
+	console.timeEnd('Time elapsed')
 	return result;
 }
