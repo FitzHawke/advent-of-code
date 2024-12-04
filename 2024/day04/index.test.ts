@@ -9,13 +9,13 @@ const year = '2024';
 const day = '04';
 
 const fullTitle = `${year} Day ${day} - ${title}`;
-const path = `${year}/day${day}`
+const path = `${year}/day${day}`;
 
 const answers = {
 	ae: 18,
 	ai: 2560,
-	be: -1,
-	bi: -1,
+	be: 9,
+	bi: 1910,
 };
 
 let input = promises.readFile(

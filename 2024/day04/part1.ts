@@ -3,7 +3,7 @@ export type dir = {
 	y: -1 | 0 | 1;
 };
 
-export const dirs: dir[] = [
+const dirs: dir[] = [
 	{ x: 0, y: 1 },
 	{ x: 0, y: -1 },
 	{ x: 1, y: 0 },
@@ -14,7 +14,17 @@ export const dirs: dir[] = [
 	{ x: -1, y: -1 },
 ];
 
-export const testDir = (
+export const parseInput = (input: string): string[] => {
+	return input.trimEnd().split('\n');
+};
+
+export const testInside = (puzzle: string[], x: number, y: number): boolean => {
+	if (x < 0 || x >= puzzle[0].length || y < 0 || y >= puzzle.length)
+		return false;
+	else return true;
+};
+
+const testDir = (
 	puzzle: string[],
 	locX: number,
 	locY: number,
@@ -24,21 +34,10 @@ export const testDir = (
 	for (let i = 1; i < word.length; i++) {
 		const newX = locX + dir.x * i;
 		const newY = locY + dir.y * i;
-		if (
-			newX < 0 ||
-			newX >= puzzle[0].length ||
-			newY < 0 ||
-			newY >= puzzle.length
-		)
-			return false;
-
+		if (!testInside(puzzle, newX, newY)) return false;
 		if (puzzle[newY][newX] !== word[i]) return false;
 	}
 	return true;
-};
-
-export const parseInput = (input: string): string[] => {
-	return input.trimEnd().split('\n');
 };
 
 const main = (input: string): number => {

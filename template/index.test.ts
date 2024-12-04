@@ -9,7 +9,7 @@ const year = 'tempYear';
 const day = 'tempDay';
 
 const fullTitle = `${year} Day ${day} - ${title}`;
-const path = `${year}/day${day}`
+const path = `${year}/day${day}`;
 
 const answers = {
 	ae: -1,
