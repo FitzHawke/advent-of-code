@@ -21,7 +21,7 @@ export const parseInput = (input: string): PrintQueue => {
 	return { rules, pages };
 };
 
-const testPage = (rules: Rule[], page: number[]): number => {
+export const testPage = (rules: Rule[], page: number[]): number => {
 	for (const rule of rules) {
 		let fX = -1;
 		let fY = -1;
@@ -29,7 +29,7 @@ const testPage = (rules: Rule[], page: number[]): number => {
 			if (rule.x === page[i]) fX = i;
 			if (rule.y === page[i]) fY = i;
 
-			if (fX > fY && fY > -1) return 0
+			if (fX > fY && fY > -1) return 0;
 		}
 	}
 

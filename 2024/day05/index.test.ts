@@ -14,8 +14,8 @@ const path = `${year}/day${day}`;
 const answers = {
 	ae: 143,
 	ai: 4959,
-	be: -1,
-	bi: -1,
+	be: 123,
+	bi: 4655,
 };
 
 let input = promises.readFile(
