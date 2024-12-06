@@ -18,7 +18,7 @@ export const parseInput = (input: string): string[][] => {
 	.map((c) => c.split(''));
 };
 
-const findStart = (oMap: string[][]): number[] => {
+export const findStart = (oMap: string[][]): number[] => {
 	for (let i = 0; i < oMap.length; i++) {
 		for (let j = 0; j < oMap[0].length; j++) {
 			if (oMap[i][j] === '^') return [i, j];
@@ -27,7 +27,7 @@ const findStart = (oMap: string[][]): number[] => {
 	return [-1, -1];
 };
 
-const walk = (oMap: string[][], r: number, c: number): number => {
+export const walk = (oMap: string[][], r: number, c: number): Set<string> => {
 	const seen = new Set<string>();
 	let idx = 0;
 	let curR = r;
@@ -47,14 +47,14 @@ const walk = (oMap: string[][], r: number, c: number): number => {
 			curC = newC;
 		}
 	}
-	return seen.size
+	return seen
 };
 
 const main = (input: string): number => {
 	const oMap = parseInput(input);
 	const startLoc = findStart(oMap).map(Number);
 	oMap[startLoc[0]][startLoc[1]] = '.';
-	return walk(oMap, startLoc[0], startLoc[1]);
+	return walk(oMap, startLoc[0], startLoc[1]).size;
 };
 
 export default function (input: string, title: string): number {
