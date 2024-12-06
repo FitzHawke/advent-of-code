@@ -4,16 +4,19 @@ import { resolve } from 'path';
 import part1 from './part1.ts';
 import part2 from './part2.ts';
 
-const title = 'tempTitle';
-const year = 'tempYear';
-const day = 'tempDay';
+const title = 'Guard Gallivant';
+const year = '2024';
+const day = '06';
 
 const fullTitle = `${year} Day ${day} - ${title}`;
 const path = `${year}/day${day}`;
 
 const answers = {
-	ae: -1,
-	ai: -1,
+	ae: 41,
+	ae2: 4,
+	ae3: 3,
+	ae4: 3,
+	ai: 4967,
 	be: -1,
 	bi: -1,
 };
@@ -26,10 +29,29 @@ let example = promises.readFile(
 	resolve(process.cwd(), path, 'example.txt'),
 	'utf8',
 );
+let example2 = promises.readFile(
+	resolve(process.cwd(), path, 'example2.txt'),
+	'utf8',
+);let example3 = promises.readFile(
+	resolve(process.cwd(), path, 'example3.txt'),
+	'utf8',
+);let example4 = promises.readFile(
+	resolve(process.cwd(), path, 'example4.txt'),
+	'utf8',
+);
 
 describe(`${year}-day${day}-Part 1`, () => {
 	it('should produce the correct value for example', async () => {
 		expect(part1(await example, fullTitle)).toEqual(answers.ae);
+	});
+	it('should produce the correct value for example', async () => {
+		expect(part1(await example2, fullTitle)).toEqual(answers.ae2);
+	});
+	it('should produce the correct value for example', async () => {
+		expect(part1(await example3, fullTitle)).toEqual(answers.ae3);
+	});
+	it('should produce the correct value for example', async () => {
+		expect(part1(await example4, fullTitle)).toEqual(answers.ae4);
 	});
 	it('should produce the correct value for input', async () => {
 		expect(part1(await input, fullTitle)).toEqual(answers.ai);
