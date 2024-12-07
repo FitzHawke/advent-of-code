@@ -11,21 +11,31 @@ export const parseInput = (input: string): Equation[] => {
 	});
 };
 
-export const testEquation = (eqn: Equation, part: 1|2): boolean => {
-	const testVals: number[][] = [eqn.values];
+export const testEquation = (eqn: Equation, part: 1 | 2): boolean => {
+	const testEqns: Equation[] = [eqn];
 
-	while (testVals.length > 0) {
-		const curVal = testVals.shift();
-		if (curVal.reduce((a, b) => a + b, 0) === eqn.ans) return true;
-		if (curVal.length <= 1) continue;
-		const testValAdd = curVal[0]+curVal[1]
-		const testValMul = curVal[0]*curVal[1]
-		if (!(testValAdd > eqn.ans)) testVals.push([testValAdd, ...curVal.slice(2)])
-		if (!(testValMul > eqn.ans)) testVals.push([testValMul, ...curVal.slice(2)])
+	while (testEqns.length > 0) {
+		const cur = testEqns.shift();
+		if (cur.values.length === 1 && cur.values[0] === cur.ans) return true;
+		if (cur.values.length === 1) continue;
+		const lastVal = cur.values.at(-1);
+
+		if (cur.ans % lastVal === 0)
+			testEqns.push({
+				ans: cur.ans / lastVal,
+				values: cur.values.slice(0, -1),
+			});
+
 		if (part === 2) {
-			const testValUnion = Number(curVal.slice(0,2).join(''))
-			if (!(testValUnion > eqn.ans)) testVals.push([testValUnion, ...curVal.slice(2)])
+			const ansStr = String(cur.ans);
+			const valStr = String(lastVal);
+			if (ansStr.endsWith(valStr)) {
+				const newAns = Number(ansStr.slice(0, ansStr.length - valStr.length));
+				testEqns.push({ ans: newAns, values: cur.values.slice(0, -1) });
+			}
 		}
+
+		if (cur.ans - lastVal > 0) testEqns.push({ ans: cur.ans - lastVal, values: cur.values.slice(0, -1) })
 	}
 	return false;
 };
@@ -34,7 +44,7 @@ const main = (input: string): number => {
 	const eqns = parseInput(input);
 	let counter = 0;
 	for (const eqn of eqns) {
-		if (testEquation(eqn,1)) counter += eqn.ans;
+		if (testEquation(eqn, 1)) counter += eqn.ans;
 	}
 	return counter;
 };
