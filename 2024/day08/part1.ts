@@ -1,4 +1,4 @@
-type AntennaGrid = {
+export type AntennaGrid = {
 	layout: Map<string, string>;
 	locations: {
 		[key: string]: string[];
@@ -33,10 +33,12 @@ const findAntinodes = (grid: AntennaGrid): number => {
 			for (let j = i + 1; j < loc.length; j++) {
 				const [r1, c1] = loc[i].split('-').map(Number);
 				const [r2, c2] = loc[j].split('-').map(Number);
+
 				const a1 = [2 * r1 - r2, 2 * c1 - c2].join('-');
 				const a2 = [2 * r2 - r1, 2 * c2 - c1].join('-');
-				if (layout.has(a1)) antinodes.add(a1)
-				if (layout.has(a2)) antinodes.add(a2)
+
+				if (layout.has(a1)) antinodes.add(a1);
+				if (layout.has(a2)) antinodes.add(a2);
 			}
 		}
 	}
@@ -45,7 +47,7 @@ const findAntinodes = (grid: AntennaGrid): number => {
 };
 
 const main = (input: string): number => {
-	const grid = parseInput(input)
+	const grid = parseInput(input);
 	return findAntinodes(grid);
 };
 
