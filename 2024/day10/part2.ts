@@ -1,29 +1,4 @@
-export type Topography = Map<string, number>;
-
-export const idFromCoord = (r: number, c: number): string => [r, c].join('_');
-export const coordFromId = (id: string): number[] => id.split('_').map(Number);
-
-export const directions = [
-	[0, 1],
-	[0, -1],
-	[1, 0],
-	[-1, 0],
-];
-
-export const parseInput = (input: string): Topography => {
-	const topoMap = new Map<string, number>();
-
-	input
-		.trimEnd()
-		.split('\n')
-		.map((line, r) => {
-			line.split('').map((v, c) => {
-				topoMap.set(idFromCoord(r, c), Number(v));
-			});
-		});
-
-	return topoMap;
-};
+import { coordFromId, directions, idFromCoord, parseInput, Topography } from './part1.ts';
 
 const walkTheMap = (topoMap: Topography): number => {
 	const findStartPoints = (): string[] => {
@@ -38,10 +13,9 @@ const walkTheMap = (topoMap: Topography): number => {
 	let paths = 0;
 
 	for (const point of startPoints) {
-		const seen = new Set<string>()
 		const step = (r: number, c: number, val: number) => {
 			if (val === 9) {
-				seen.add(idFromCoord(r,c))
+				paths += 1
 			} else {
 				for (const dir of directions) {
 					const newR = r + dir[0]
@@ -55,8 +29,6 @@ const walkTheMap = (topoMap: Topography): number => {
 		};
 		const [r,c] = coordFromId(point)
 		step(r,c,0)
-
-		paths += seen.size
 	}
 
 	return paths;
@@ -68,9 +40,9 @@ const main = (input: string): number => {
 };
 
 export default function (input: string, title: string): number {
-	console.log(`\n${title}\nPart 1`);
-	console.time('Time elapsed');
+	console.log(`\n${title}\nPart 2`);
+	console.time('Time elapsed')
 	const result = main(input);
-	console.timeEnd('Time elapsed');
+	console.timeEnd('Time elapsed')
 	return result;
 }
