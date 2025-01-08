@@ -1,47 +1,44 @@
-type StoneRound = [number, number];
-
-export const parseInput = (input: string): StoneRound[] => {
+export const parseInput = (input: string): number[] => {
 	return input
 		.trimEnd()
 		.split(' ')
-		.map((s) => [Number(s), 0] as StoneRound);
+		.map(Number);
 };
 
-export const blink = (stones: StoneRound[], blinks: number): number => {
-	const remainingStones = [...stones];
+export const countStones = (stones: number[], blinks: number): number => {
+	const cache = new Map<string, number>();
 	let count = 0;
 
-	while (remainingStones.length > 0) {
-		const curStone = remainingStones.pop();
+	const blink = (value: number, blinkNo: number): number => {
+		const label = [value, blinkNo].join('_');
+		if (cache.has(label)) return cache.get(label);
+		if (blinkNo >= blinks) return 1;
+		let curCount = 0;
 
-		if (curStone[1] === blinks) {
-			count++;
-			continue;
+		if (value === 0) {
+			curCount = blink(1, blinkNo + 1);
+		} else if (String(value).length % 2 === 0) {
+			const stoneStr = String(value);
+			const l = Number(stoneStr.substring(0, stoneStr.length / 2));
+			const r = Number(stoneStr.substring(stoneStr.length / 2));
+			curCount = blink(l, blinkNo + 1) + blink(r, blinkNo + 1);
+		} else {
+			curCount = blink(value * 2024, blinkNo + 1);
 		}
 
-		const blinkNum = curStone[1] + 1;
+		cache.set(label, curCount);
+		return curCount;
+	};
 
-		if (curStone[0] === 0) {
-			remainingStones.push([1, blinkNum]);
-			continue;
-		}
-
-		if (String(curStone[0]).length%2===0) {
-			const stoneStr = String(curStone[0])
-			const l = Number(stoneStr.substring(0,stoneStr.length/2))
-			const r = Number(stoneStr.substring(stoneStr.length/2))
-			remainingStones.push([l,blinkNum],[r,blinkNum])
-			continue;
-		}
-
-		remainingStones.push([curStone[0]*2024,blinkNum])
+	for (const stone of stones) {
+		count += blink(stone, 0);
 	}
 
 	return count;
 };
 
 const main = (input: string): number => {
-	return blink(parseInput(input), 25);
+	return countStones(parseInput(input), 25);
 };
 
 export default function (input: string, title: string): number {
