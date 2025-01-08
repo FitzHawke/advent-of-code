@@ -15,7 +15,7 @@ const answers = {
 	ae: 1930,
 	ai: 1573474,
 	be: 1206,
-	bi: -1,
+	bi: 966476,
 };
 
 let input = promises.readFile(
