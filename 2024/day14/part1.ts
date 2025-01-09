@@ -40,7 +40,7 @@ const scoreSafety = (robots: Robot[], w: number, h: number): number => {
 };
 
 const main = (input: string, w: number, h: number): number => {
-	let robots = parseInput(input);
+	const robots = parseInput(input);
 	for (let i = 0; i < 100; i++) {
 		moveRobots(robots, w, h);
 	}
