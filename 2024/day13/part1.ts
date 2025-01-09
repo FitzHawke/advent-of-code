@@ -38,21 +38,25 @@ export const parseInput = (input: string): Machine[] => {
 		});
 };
 
-const findBestPlay = (machine: Machine): number => {
-	const reqTokens:number[] = []
+export const findBestPlay = (machine: Machine, offset:number = 0): number => {
+	const realPX = offset + machine.pX;
+	const realPY = offset + machine.pY;
+	const d = calcDeter(machine.aX,machine.aY,machine.bX,machine.bY)
+	const dA = calcDeter(realPX,realPY,machine.bX,machine.bY)
+	const dB = calcDeter(machine.aX,machine.aY,realPX,realPY)
 
-	for (let i = 0; i < 100; i++) {
-		const testX = machine.aX * i
-		const testY = machine.aY * i
-		const remX = machine.pX - testX
-		const remY = machine.pY - testY
-		if (remX % machine.bX === 0 && remY % machine.bY ===0 && remX / machine.bX === remY / machine.bY ) {
-			reqTokens.push(i * 3 + remX / machine.bX)
-		}
+	const solA = dA/d
+	const solB = dB/d
+
+	if (solA % 1 === 0 && solB % 1 === 0) {
+		return solA * 3 + solB
 	}
 
-	return reqTokens.length > 0 ? Math.min(...reqTokens) : 0
+	return 0;
 };
+
+const calcDeter = (a1: number, a2: number, b1: number, b2: number): number =>
+	a1 * b2 - a2 * b1;
 
 const main = (input: string): number => {
 	return parseInput(input).reduce((acc, c) => acc + findBestPlay(c), 0);
