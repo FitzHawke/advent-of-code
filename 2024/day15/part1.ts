@@ -1,11 +1,11 @@
-type Maze = Map<string, string>;
+export type Maze = Map<string, string>;
 
 type Position = {
 	r: number;
 	c: number;
 };
 
-type Instructions = {
+export type Instructions = {
 	maze: Maze;
 	ins: string[];
 	robotPos: Position;
@@ -14,7 +14,7 @@ type Instructions = {
 export const idFromCoord = (r: number, c: number): string => [r, c].join('_');
 export const coordFromId = (id: string): number[] => id.split('_').map(Number);
 
-const dirs = new Map()
+export const dirs = new Map()
 	.set('<', [0, -1])
 	.set('^', [-1, 0])
 	.set('>', [0, 1])
@@ -34,32 +34,61 @@ export const parseInput = (input: string): Instructions => {
 	return { maze, ins, robotPos };
 };
 
-const moveRobot = (ins: Instructions) => {
+export const moveRobot = (ins: Instructions) => {
 	const maze = ins.maze;
 	const fullIns = ins.ins.join('');
 	const curPos = ins.robotPos;
 
-	const makeMove = (r: number, c: number, dirStr: string): boolean => {
-		const curVal = maze.get(idFromCoord(r, c));
+	const testMove = (r: number, c: number, dirStr: string): boolean => {
 		const offset = dirs.get(dirStr);
 		const newR = r + offset[0];
 		const newC = c + offset[1];
 
-		if (curVal === '#') return false;
+		const nextVal = maze.get(idFromCoord(newR, newC));
+		if (nextVal === '#') return false;
 
-		if (
-			maze.get(idFromCoord(newR, newC)) === '.' ||
-			makeMove(newR, newC, dirStr)
-		) {
-			maze.set(idFromCoord(newR, newC), curVal);
-			maze.set(idFromCoord(r, c), '.');
-			return true;
+		const doubleL = (dirStr === 'v' || dirStr === '^') && nextVal === ']';
+		const doubleR = (dirStr === 'v' || dirStr === '^') && nextVal === '[';
+
+		if (doubleL) {
+			return testMove(newR, newC - 1, dirStr) && testMove(newR, newC, dirStr);
+		} else if (doubleR) {
+			return testMove(newR, newC, dirStr) && testMove(newR, newC + 1, dirStr);
+		} else if (nextVal !== '.') {
+			return testMove(newR, newC, dirStr);
 		}
-		return false;
+
+		return true;
+	};
+
+	const makeMove = (r: number, c: number, dirStr: string) => {
+		const curVal = maze.get(idFromCoord(r, c));
+
+		const offset = dirs.get(dirStr);
+		const newR = r + offset[0];
+		const newC = c + offset[1];
+
+		const nextVal = maze.get(idFromCoord(newR, newC));
+		const doubleL = (dirStr === 'v' || dirStr === '^') && nextVal === ']';
+		const doubleR = (dirStr === 'v' || dirStr === '^') && nextVal === '[';
+
+		if (doubleL) {
+			makeMove(newR, newC - 1, dirStr);
+			makeMove(newR, newC, dirStr);
+		} else if (doubleR) {
+			makeMove(newR, newC, dirStr);
+			makeMove(newR, newC + 1, dirStr);
+		} else if (nextVal !== '.') {
+			makeMove(newR, newC, dirStr);
+		}
+
+		maze.set(idFromCoord(newR, newC), curVal);
+		maze.set(idFromCoord(r, c), '.');
 	};
 
 	for (const move of fullIns) {
-		if (makeMove(curPos.r, curPos.c, move)) {
+		if (testMove(curPos.r, curPos.c, move)) {
+			makeMove(curPos.r, curPos.c, move);
 			const offset = dirs.get(move);
 			curPos.r += offset[0];
 			curPos.c += offset[1];
@@ -67,11 +96,11 @@ const moveRobot = (ins: Instructions) => {
 	}
 };
 
-const calcBoxSum = (maze: Maze): number => {
+export const calcBoxSum = (maze: Maze, boxID: string): number => {
 	let count = 0;
 	for (const [loc, type] of maze) {
-		if (type === 'O') {
-			const [r, c] = coordFromId(loc).map(Number);
+		if (type === boxID) {
+			const [r, c] = coordFromId(loc);
 			count += r * 100 + c;
 		}
 	}
@@ -81,7 +110,7 @@ const calcBoxSum = (maze: Maze): number => {
 const main = (input: string): number => {
 	const ins = parseInput(input);
 	moveRobot(ins);
-	return calcBoxSum(ins.maze);
+	return calcBoxSum(ins.maze, 'O');
 };
 
 export default function (input: string, title: string): number {
