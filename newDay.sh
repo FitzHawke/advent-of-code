@@ -45,11 +45,15 @@ sed -i "s/tempTitle/$title/" ./$1/$day_str/index.test.ts
 echo "## $title" >./$1/$day_str/README.md
 echo https://adventofcode.com/$1/day/$day_num >>./$1/$day_str/README.md
 
+# variable to flip for git commit
+part1_commit=false
+
 function display_menu() {
   echo "Please choose an option:"
   echo "1) submit part 1"
   echo "2) submit part 2"
   echo "3) re-download puzzle for part 2"
+  echo "0) git commit (aka be lazy)"
   echo "q) Quit"
   echo "[*]) run tests"
   echo ""
@@ -74,6 +78,23 @@ while true; do
   3)
     echo "Re-downloading Puzzle"
     aoc download -y $1 -d $day_num -o -P -p ./$1/$day_str/puzzle.md
+    ;;
+  0)
+    echo "Adding and commiting to git. Lazy bastard."
+    echo "You can push it yourself"
+    if [ "$part1_commit" = false ]; then
+      git add ./$1/$day_str/index.test.ts
+      git add ./$1/$day_str/part1.ts
+      git add ./$1/$day_str/README.md
+      git commit -m "$1 day $day_num part 1"
+      part1_commit=true
+    else
+      git add ./$1/$day_str/index.test.ts
+      git add ./$1/$day_str/part1.ts
+      git add ./$1/$day_str/part2.ts
+      git add ./$1/$day_str/README.md
+      git commit -m "$1 day $day_num part 2"
+    fi
     ;;
   q | Q)
     echo "Exiting..."
