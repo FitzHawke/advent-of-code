@@ -1,4 +1,4 @@
-type loc = [number, number];
+export type loc = [number, number];
 type dir = [-1 | 0 | 1, -1 | 0 | 1];
 
 export const parseInput = (input: string): loc[] => {
@@ -18,8 +18,6 @@ export const sp = (char: string, id: string): number[] => {
 	return id.split(char).map(Number);
 };
 
-export const idFromCoord = (r: number, c: number): string => [r, c].join('_');
-export const coordFromId = (id: string): number[] => id.split('_').map(Number);
 export const dirs: dir[] = [
 	[-1, 0],
 	[0, 1],
@@ -27,7 +25,7 @@ export const dirs: dir[] = [
 	[0, -1],
 ];
 
-export const buildMap = (locList: loc[], bytes: number): Set<string> => {
+export const findCorrupted = (locList: loc[], bytes: number): Set<string> => {
 	const corrupt = new Set<string>();
 	for (let i = 0; i < bytes; i++) {
 		const id = jn('_', locList[i][0], locList[i][1]);
@@ -36,9 +34,9 @@ export const buildMap = (locList: loc[], bytes: number): Set<string> => {
 	return corrupt;
 };
 
-const findPath = (corrupt: Set<string>, gridSize: number): number => {
-	const queue: string[] = ['0_0_0'];
+export const findPath = (corrupt: Set<string>, gridSize: number): number => {
 	const seen = new Map<string, number>();
+	const queue: string[] = ['0_0_0'];
 
 	while (queue.length > 0) {
 		const [r, c, num] = sp('_', queue.shift());
@@ -55,12 +53,14 @@ const findPath = (corrupt: Set<string>, gridSize: number): number => {
 			queue.push(jn('_', newR, newC, num + 1));
 		}
 	}
-	return seen.get(jn('_', gridSize, gridSize));
+
+	const end = jn('_', gridSize, gridSize);
+	return seen.has(end) ? seen.get(end) : -1;
 };
 
 const main = (input: string, gridSize: number, bytes: number): number => {
 	const coords = parseInput(input);
-	const corrupt = buildMap(coords, bytes);
+	const corrupt = findCorrupted(coords, bytes);
 	return findPath(corrupt, gridSize);
 };
 
