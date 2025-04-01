@@ -1,42 +1,50 @@
 export const directions = new Map()
-	.set('U', [0, -1])
-	.set('D', [0, 1])
-	.set('L', [-1, 0])
-	.set('R', [1, 0]);
+	.set('L', [0, -1])
+	.set('R', [0, 1])
+	.set('U', [-1, 0])
+	.set('D', [1, 0]);
 
 export const parseInput = (input: string): string[] => {
 	return input.trimEnd().split('\n');
 };
 
-const calcPassCode = (digitMoves: string[]): number => {
+export const calcPassCode = (
+	digitMoves: string[],
+	keypad: string[][],
+	initialLoc: number[],
+): string => {
 	const code: string[] = [];
-	const keypadLoc = [1, 1];
-	const keypad = [
-		['1', '2', '3'],
-		['4', '5', '6'],
-		['7', '8', '9'],
-	];
+	const keypadLoc = initialLoc;
 
 	for (const moves of digitMoves) {
 		for (const move of moves) {
 			const dir = directions.get(move) || [0, 0];
-			if (keypadLoc[0] + dir[0] < 0 || keypadLoc[0] + dir[0] > 2) continue;
-			if (keypadLoc[1] + dir[1] < 0 || keypadLoc[1] + dir[1] > 2) continue;
-			keypadLoc[0] += dir[0];
-			keypadLoc[1] += dir[1];
+			let [r, c] = keypadLoc;
+			r += dir[0];
+			c += dir[1];
+			if (keypad[r][c] === 'X') continue;
+			keypadLoc[0] = r;
+			keypadLoc[1] = c;
 		}
-		code.push(keypad[keypadLoc[1]][keypadLoc[0]]);
+		code.push(keypad[keypadLoc[0]][keypadLoc[1]]);
 	}
 
-	return Number(code.join(''));
+	return code.join('');
 };
 
-const main = (input: string): number => {
+const main = (input: string): string => {
 	const directions = parseInput(input);
-	return calcPassCode(directions);
+	const keypad = [
+		['X', 'X', 'X', 'X', 'X'],
+		['X', '1', '2', '3', 'X'],
+		['X', '4', '5', '6', 'X'],
+		['X', '7', '8', '9', 'X'],
+		['X', 'X', 'X', 'X', 'X'],
+	];
+	return calcPassCode(directions, keypad, [2, 2]);
 };
 
-export default function (input: string, title: string): number {
+export default function (input: string, title: string): string {
 	console.log(`\n${title}\nPart 1`);
 	console.time('Time elapsed');
 	const result = main(input);

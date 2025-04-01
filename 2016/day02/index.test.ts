@@ -12,10 +12,10 @@ const fullTitle = `${year} Day ${day} - ${title}`;
 const path = `${year}/day${day}`;
 
 const answers = {
-	ae: 1985,
-	ai: 99332,
-	be: -1,
-	bi: -1,
+	ae: '1985',
+	ai: '99332',
+	be: '5DB3',
+	bi: 'DD483',
 };
 
 let input = promises.readFile(
