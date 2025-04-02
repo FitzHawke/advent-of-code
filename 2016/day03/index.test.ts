@@ -15,7 +15,7 @@ const answers = {
 	ae: 2,
 	ai: 862,
 	be: 1,
-	bi: -1,
+	bi: 1577,
 };
 
 let input = promises.readFile(
