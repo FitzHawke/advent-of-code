@@ -19,7 +19,7 @@ export const parseInput = (input: string): OpType[] => {
 		});
 };
 
-const performOperations = (
+export const performOperations = (
 	opList: OpType[],
 	w: number,
 	h: number,
@@ -62,8 +62,6 @@ const performOperations = (
 		else if (op.op === 'row') row(op.a, op.b);
 		else if (op.op === 'col') col(op.a, op.b);
 	}
-
-	console.log(active);
 
 	return active;
 };
