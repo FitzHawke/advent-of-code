@@ -2,7 +2,7 @@ export const parseInput = (input: string): string => {
 	return input.trimEnd();
 };
 
-const findSequence = (str: string, idx: number): number[] => {
+export const findSequence = (str: string, idx: number): number[] => {
 	const tmpStr = str.slice(idx + 1);
 	const [a, b] = tmpStr.split(')')[0].split('x');
 	const c = a.length + b.length + 2;
