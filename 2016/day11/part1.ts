@@ -39,7 +39,7 @@ export const serialize = (map: FloorMap): string => {
 	return serial.join(' ');
 };
 
-const deserialize = (inp: string): FloorMap => {
+export const deserialize = (inp: string): FloorMap => {
 	const floorMap: FloorMap = new Map();
 	for (const floor of inp.split(' ')) {
 		const [num, g, m] = floor.split('-');
@@ -51,7 +51,7 @@ const deserialize = (inp: string): FloorMap => {
 	return floorMap;
 };
 
-const moveItems = (serialized: string) => {
+export const moveItems = (serialized: string) => {
 	const queue: [string, number, number][] = [[serialized, 1, 0]];
 	const seen = new Set<string>();
 
@@ -173,7 +173,6 @@ const moveItems = (serialized: string) => {
 
 const main = (input: string): number => {
 	const floorMap = parseInput(input);
-	console.log(floorMap, deserialize(floorMap));
 	return moveItems(floorMap);
 };
 
