@@ -1,4 +1,4 @@
-export type InsType = {
+type InsType = {
 	instruction: 'cpy' | 'inc' | 'dec' | 'jnz';
 	rSrc?: 'a' | 'b' | 'c' | 'd';
 	rDest?: 'a' | 'b' | 'c' | 'd';
@@ -88,16 +88,16 @@ export const parseInput = (input: string): InsType[] => {
 	return instructions;
 };
 
-const calcRegisters = (instructions: InsType[]): number => {
-	const registers: RegistersType = { a: 0, b: 0, c: 0, d: 0 };
-
+export const calcRegisters = (
+	instructions: InsType[],
+	registers: RegistersType,
+): number => {
 	for (let i = 0; i < instructions.length; i++) {
 		const ins = instructions[i];
 		if (ins.instruction === 'cpy') cpy(registers, ins);
 		if (ins.instruction === 'inc') inc(registers, ins);
 		if (ins.instruction === 'dec') dec(registers, ins);
 		if (ins.instruction === 'jnz') i = jnz(registers, ins, i);
-		console.log(registers);
 	}
 
 	return registers.a;
@@ -105,7 +105,8 @@ const calcRegisters = (instructions: InsType[]): number => {
 
 const main = (input: string): number => {
 	const instructions = parseInput(input);
-	return calcRegisters(instructions);
+	const registers: RegistersType = { a: 0, b: 0, c: 0, d: 0 };
+	return calcRegisters(instructions, registers);
 };
 
 export default function (input: string, title: string): number {
