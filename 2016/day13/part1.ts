@@ -2,14 +2,14 @@ export const parseInput = (input: string): number => {
 	return Number(input.trimEnd());
 };
 
-const dirs = [
+export const dirs = [
 	[1, 0],
 	[0, 1],
 	[-1, 0],
 	[0, -1],
 ];
 
-const isWall = (r: number, c: number, magic: number): boolean => {
+export const isWall = (r: number, c: number, magic: number): boolean => {
 	const number = c * c + 3 * c + 2 * r * c + r + r * r + magic;
 	const bin = number.toString(2);
 	const ones = bin.split('').reduce((acc, c) => (c === '1' ? acc + 1 : acc), 0);
