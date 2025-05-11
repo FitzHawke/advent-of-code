@@ -1,21 +1,22 @@
-import crypto from 'node:crypto';
-
-export const md5Hash = (str: string) =>
-	crypto.createHash('md5').update(str).digest('hex');
-
-export const parseInput = (input: string): string => {
-	return input.trimEnd();
-};
+import { md5Hash, parseInput } from './part1.ts';
 
 const find64Key = (salt: string): number => {
 	const seen = new Map<string, string>();
 	const keys: string[] = [];
 	let i = -1;
 
+	const reHash = (hash: string): string => {
+		let curHash = hash;
+		for (let j = 0; j < 2016; j++) {
+			curHash = md5Hash(curHash);
+		}
+		return curHash;
+	};
+
 	const verifyKey = (val: string, iter: number) => {
 		for (let j = 1; j <= 1000; j++) {
 			const tstSalt = `${salt}${j + iter}`;
-			if (!seen.has(tstSalt)) seen.set(tstSalt, md5Hash(tstSalt));
+			if (!seen.has(tstSalt)) seen.set(tstSalt, reHash(md5Hash(tstSalt)));
 
 			const hashed = seen.get(tstSalt);
 			const testStr = `${val}${val}${val}${val}${val}`;
@@ -32,7 +33,7 @@ const find64Key = (salt: string): number => {
 		i++;
 		const newSalt = `${salt}${i}`;
 
-		if (!seen.has(newSalt)) seen.set(newSalt, md5Hash(newSalt));
+		if (!seen.has(newSalt)) seen.set(newSalt, reHash(md5Hash(newSalt)));
 
 		const hashed = seen.get(newSalt);
 		const found: string[] = [];
@@ -56,7 +57,7 @@ const main = (input: string): number => {
 };
 
 export default function (input: string, title: string): number {
-	console.log(`\n${title}\nPart 1`);
+	console.log(`\n${title}\nPart 2`);
 	console.time('Time elapsed');
 	const result = main(input);
 	console.timeEnd('Time elapsed');
